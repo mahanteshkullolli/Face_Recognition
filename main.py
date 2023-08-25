@@ -27,6 +27,7 @@ while True:
     face_locations = face_recognition.face_locations(rgb_small_frame)
     face_encodings = face_recognition.face_encodings(rgb_small_frame, face_locations)
 
+    #compare faces between known_face and camera_face
     for face_encoding in face_encodings:
         matches = face_recognition.compare_faces(known_face_encoding,face_encoding )
         face_distance = face_recognition.face_distance(known_face_encoding, face_encoding)
@@ -34,7 +35,8 @@ while True:
 
         if matches[best_match]:
             name = known_face_names[best_match]
-
+            
+        #display name 
         if name in known_face_names:
             font=cv2.FONT_HERSHEY_SIMPLEX
             bottomleftcorneroftext=(10,100)
@@ -43,12 +45,14 @@ while True:
             thickness=3
             linetype=2
             cv2.putText(frame,name+" present",bottomleftcorneroftext,font,fontScale,fontColor,thickness,linetype)
-
+            
+            #write to csv file
             if name in students:
                 students.remove(name)
                 current_time=now.strftime("%H-%M-%S")
                 lnwriter.writerow([name,current_time])
 
+    #to exit
     cv2.imshow("mantu", frame)
     if cv2.waitKey(1) & 0xFF == ord("q"):
         break
