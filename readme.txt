@@ -6,7 +6,7 @@
 	->vscode desktop development with c++(build tool)
 
 
-*modules to install
+*modules to import
 
 	->numpy
 	->opencv
